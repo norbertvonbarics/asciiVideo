@@ -4,6 +4,7 @@ import static java.awt.Font.BOLD;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,6 @@ public class VideoConvertService extends JComponent {
     private static final String FONT = "Ariel";
 
     ImageToAsciiService asciiService;
-    int divider;
     int fontSize;
 
     @Override
@@ -32,5 +32,13 @@ public class VideoConvertService extends JComponent {
         asciiService.createAsciiImage(graphics, image, fontSize);
 
         repaint();
+    }
+
+    BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = resizedImage.createGraphics();
+        graphics2D.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        graphics2D.dispose();
+        return resizedImage;
     }
 }
