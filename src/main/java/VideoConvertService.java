@@ -1,14 +1,12 @@
-import static java.awt.Color.BLACK;
-import static java.awt.Font.BOLD;
-
-import com.github.sarxos.webcam.Webcam;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import javax.swing.JComponent;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static java.awt.Color.BLACK;
+import static java.awt.Font.BOLD;
 
 @AllArgsConstructor
 public class VideoConvertService extends JComponent {
@@ -16,20 +14,24 @@ public class VideoConvertService extends JComponent {
     private static final String FONT = "Ariel";
 
     ImageToAsciiService asciiService;
-    int fontSize;
+    private static final int fontSize = 5;
 
     @Override
     @SneakyThrows
     public void paint(Graphics graphics) {
         super.paint(graphics);
 
-        Webcam webcam = Webcam.getDefault();
-        webcam.open();
-        BufferedImage image = webcam.getImage();
+        // Webcam webcam = Webcam.getDefault();
+        // webcam.open();
+        Robot robot = new Robot();
+        GraphicsDevice[] screens = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+        GraphicsConfiguration screenOneConfig = screens[0].getConfigurations()[0];
+        BufferedImage screen = robot.createScreenCapture(screenOneConfig.getBounds());
 
         graphics.setColor(BLACK);
         graphics.setFont(new Font(FONT, BOLD, fontSize));
-        asciiService.createAsciiImage(graphics, image, fontSize);
+        BufferedImage bufferedImage = resizeImage(screen, screen.getWidth() / fontSize, screen.getHeight() / fontSize);
+        asciiService.createAsciiImage(graphics, bufferedImage, fontSize);
 
         repaint();
     }

@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         JFrame frame = new JFrame(ASCII_VIDEO_CONVERTER);
-        VideoConvertService service = new VideoConvertService(new ImageToAsciiService(),4);
+        VideoConvertService service = new VideoConvertService(new ImageToAsciiService());
         frame.add(service);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension screenSize = getDefaultToolkit().getScreenSize();
