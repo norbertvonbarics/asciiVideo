@@ -14,7 +14,7 @@ public class VideoConvertService extends JComponent {
     private static final String FONT = "Ariel";
 
     ImageToAsciiService asciiService;
-    private static final int fontSize = 5;
+    private static final int fontSize = 10;
 
     @Override
     @SneakyThrows

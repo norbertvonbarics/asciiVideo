@@ -9,7 +9,6 @@ public class Main {
     public static final String ASCII_VIDEO_CONVERTER = "asciiVideoConverter";
 
     public static void main(String[] args) {
-
         JFrame frame = new JFrame(ASCII_VIDEO_CONVERTER);
         VideoConvertService service = new VideoConvertService(new ImageToAsciiService());
         frame.add(service);
